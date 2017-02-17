@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+   <center>
+      <BorderPane BorderPane.alignment="CENTER">
+         <center>
+            <VBox minHeight="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <SplitPane dividerPositions="0.24123539232053423" prefHeight="1000.0">
+                    <items>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ToolBar prefHeight="25.0" prefWidth="200.0">
+                                <items>
+                                    <Label text="Objects" />
+                                    <TextField promptText="Search" />
+                                </items>
+                              </ToolBar>
+                              <TreeView fx:id="treeView" prefHeight="1000.0" prefWidth="286.0" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="centerVbox" prefHeight="1000.0">
+                           <children>
+                              <ToolBar prefHeight="25.0" prefWidth="200.0">
+                                <items>
+                                    <Label text="Map" />
+                                  <Button mnemonicParsing="false" text="Button" />
+                                    <MenuButton mnemonicParsing="false" text="Filter">
+                                       <items>
+                                          <CheckMenuItem mnemonicParsing="false" selected="true" text="World Map" />
+                                          <CheckMenuItem mnemonicParsing="false" selected="true" text="Targets" />
+                                          <CheckMenuItem mnemonicParsing="false" selected="true" text="Measurment Lines" />
+                                       </items>
+                                    </MenuButton>
+                                </items>
+                              </ToolBar>
+                           </children>
+                        </VBox>
+                    </items>
+                  </SplitPane>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <SplitPane dividerPositions="0.5" prefHeight="299.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+               <items>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ToolBar prefHeight="25.0" prefWidth="200.0">
+                          <items>
+                              <Label text="Log" />
+                            <Button mnemonicParsing="false" text="Button" />
+                          </items>
+                        </ToolBar>
+                        <ListView prefHeight="267.0" prefWidth="596.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ToolBar prefHeight="25.0" prefWidth="200.0">
+                          <items>
+                              <Label text="Controlls" />
+                            <Button mnemonicParsing="false" text="Button" />
+                          </items>
+                        </ToolBar>
+                        <AnchorPane prefHeight="262.0" prefWidth="596.0">
+                           <children>
+                              <Slider fx:id="slideAltitudeControll" layoutX="14.0" layoutY="39.0" />
+                              <Slider fx:id="slideHeadingControll" blockIncrement="1.0" layoutX="14.0" layoutY="89.0" max="180.0" min="-180.0" />
+                              <Slider fx:id="slideVelocityControll" blockIncrement="2.0" layoutX="14.0" layoutY="131.0" />
+                              <Label layoutX="64.0" layoutY="22.0" text="Altitude" />
+                              <Label layoutX="62.0" layoutY="72.0" text="Heading" />
+                              <Label layoutX="63.0" layoutY="114.0" text="Speed" />
+                              <Label layoutX="65.0" layoutY="158.0" text="Rudder" />
+                              <Slider fx:id="slideRudderControll" blockIncrement="2.0" layoutX="14.0" layoutY="175.0" min="-100.0" />
+                              <TextField fx:id="txtAltitude" layoutX="154.0" layoutY="34.0" prefHeight="25.0" prefWidth="90.0" />
+                              <TextField fx:id="txtHeading" layoutX="154.0" layoutY="84.0" prefHeight="0.0" prefWidth="90.0" />
+                              <TextField fx:id="txtVelocity" layoutX="154.0" layoutY="126.0" prefHeight="25.0" prefWidth="90.0" />
+                              <TextField fx:id="txtRudder" layoutX="154.0" layoutY="170.0" onAction="#setRudder" prefHeight="25.0" prefWidth="90.0" />
+                              <TextField fx:id="txtLatitude" layoutX="286.0" layoutY="34.0" />
+                              <TextField fx:id="txtLongitude" layoutX="435.0" layoutY="34.0" />
+                              <Text layoutX="339.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude" />
+                              <Text layoutX="483.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </items>
+            </SplitPane>
+         </bottom></BorderPane>
+   </center>
+   <top>
+      <VBox prefHeight="55.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="35.0" prefWidth="200.0">
+               <items>
+                  <MenuButton mnemonicParsing="false" text="New">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Scenario" />
+                      <MenuItem mnemonicParsing="false" onAction="#btnNewShip" text="Ship" />
+                      <MenuItem mnemonicParsing="false" onAction="#btnNewSensor" text="Sensor" />
+                        <MenuItem mnemonicParsing="false" onAction="#btnNewTarget" text="Target" />
+                    </items>
+                  </MenuButton>
+                  <MenuButton mnemonicParsing="false" text="Open">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#btnOpenShip" text="Scenario" />
+                      <MenuItem mnemonicParsing="false" onAction="#btnOpenSensor" text="Sensor" />
+                        <MenuItem mnemonicParsing="false" onAction="#btnOpenTarget" text="Target" />
+                    </items>
+                  </MenuButton>
+                  <Button disable="true" mnemonicParsing="false" onAction="#btnSaveObject" text="Save" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+                  <Button mnemonicParsing="false" onAction="#btnStartSimulation" text="Run" />
+                  <Button mnemonicParsing="false" onAction="#btnPauseSimulation" text="Pause" />
+                  <Button mnemonicParsing="false" onAction="#btnStopSimulation" text="Stop" />
+                  <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="0.0" />
+               </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </top>
+</BorderPane>
