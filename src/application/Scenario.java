@@ -1,13 +1,18 @@
 package application;
 
 import java.io.IOException;
+import java.security.SignatureException;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.concurrent.Task;
 
 public class Scenario extends Task<Integer>{
 
 	private Ship shipUnderTest;
 	private Range range = new Range();
+	private LongProperty updateCount = new SimpleLongProperty(0);
 	
 	
 	
@@ -15,7 +20,9 @@ public class Scenario extends Task<Integer>{
 	public Ship getShipUnderTest() {
 		return shipUnderTest;
 	}
-
+	public LongProperty updateCountProperty(){
+		return this.updateCount;
+	}
 
 
 
@@ -40,7 +47,7 @@ public class Scenario extends Task<Integer>{
 				sensor.sendData();
 			}
 
-			 
+			updateCount.set(updateCount.get() + 1);
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -52,6 +59,13 @@ public class Scenario extends Task<Integer>{
 		}
 		
 		return null;
+	}
+
+
+
+
+	public long getUpdateCount() {
+		return updateCount.longValue();
 	}
 
 

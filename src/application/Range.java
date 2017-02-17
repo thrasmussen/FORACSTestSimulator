@@ -39,5 +39,15 @@ public class Range {
 		return t;
 		
 	}
+	
+	public Target findTarget(String name){
+		for(Target t : targets){
+			if(t.getName() == name) {
+				return t;
+			}
+			
+		}
+		return null;
+	}
 
 }

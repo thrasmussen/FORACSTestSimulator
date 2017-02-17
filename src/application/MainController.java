@@ -34,6 +34,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -67,6 +68,7 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
     @FXML VBox centerVbox;
     @FXML TextField txtLatitude;
     @FXML TextField txtLongitude;
+    @FXML ListView<String> logList;
 
     
     
@@ -196,6 +198,16 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 		     
 		});
 		
+		scenario.updateCountProperty().addListener((v, oldValue, newValue)->{
+//			System.out.println("update " + newValue);
+//			if((int)newValue%10 == 0){
+//				System.out.println("mod100");
+//			}
+//			LLA currPos = SUT.getShipLLA();
+//			ownShipMarker.setPosition(new LatLong(currPos.getLatitudeDeg(),currPos.getLongitudeDeg()));
+//			map.setCenter(new LatLong(currPos.getLatitudeDeg(),currPos.getLongitudeDeg()));
+		});
+		
 		
 //		slideHeadingControll.valueProperty().addListener((observable, oldValue, newValue) -> {
 //			scenario.getShipUnderTest().setShipHeading(newValue.doubleValue() * (Math.PI * 180));
@@ -312,6 +324,7 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 	}
 	
 	public void btnStartSimulation(ActionEvent event){
+		SUT.setRunning(true);
 		System.out.println("Start Simulation");
 		scenario.getShipUnderTest().setShipLastUpdated();
 		new Thread(scenario).start();

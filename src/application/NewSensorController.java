@@ -165,7 +165,7 @@ public class NewSensorController implements EventHandler<ActionEvent> {
    
     @FXML
     void actionTargetChoosen(ActionEvent event) {
-
+    	s.setTarget(MainController.getScenario().getRange().findTarget(chooseTarget.getValue()));
     }
 
 	
