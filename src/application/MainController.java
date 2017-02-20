@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,6 +9,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.javascript.event.GFXEventHandler;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
@@ -250,7 +253,7 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 		treeView.setRoot(treeRoot);
 		treeView.setShowRoot(false);
 		
-
+		
 		
 		
 		
@@ -413,6 +416,8 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 
 		
 	}
+	
+	
 	public static void newSensorToTree(Sensor s){
 		TreeItem<String> sensorItem = new TreeItem<String>(s.getName());
 		treeOwnShip.getChildren().add(sensorItem);

@@ -44,6 +44,18 @@ public class GeoCalculations {
 		double lon2 = pos1.getLongitude() + Math.atan2(Math.sin(brng)*Math.sin(d/EARTH_RADIUS_IN_METER)*Math.cos(pos1.getLatitude()), Math.cos(d/EARTH_RADIUS_IN_METER)-Math.sin(pos1.getLatitude())*Math.sin(lat2));
 		return new LLA(lat2, lon2, pos1.getAltitude()+z); 
 	}
+	public static LLA geoPosFromParallax(Sensor s){
+		double x = s.getxParallax();
+		double y = s.getyParallax();
+		double z = s.getzParallax();
+		double bearing = s.getOwnShip().getShipHeading();
+		LLA pos1 = s.getLLA();
+		double brng = Math.atan(y/x) - bearing;
+		double d = Math.sqrt(y*y+x*x);
+		double lat2 = Math.asin(Math.sin(pos1.getLatitude())*Math.cos(d/EARTH_RADIUS_IN_METER) + Math.cos(pos1.getLatitude())*Math.sin(d/EARTH_RADIUS_IN_METER)*Math.cos(brng));
+		double lon2 = pos1.getLongitude() + Math.atan2(Math.sin(brng)*Math.sin(d/EARTH_RADIUS_IN_METER)*Math.cos(pos1.getLatitude()), Math.cos(d/EARTH_RADIUS_IN_METER)-Math.sin(pos1.getLatitude())*Math.sin(lat2));
+		return new LLA(lat2, lon2, pos1.getAltitude()+z); 
+	}
 	
 	public static LLA geoPosFromDistance(LLA pos1, double d, double bearing){
 		System.out.println("before: " + pos1.getLatitude() + " d= " + d+ "b:  " + bearing);

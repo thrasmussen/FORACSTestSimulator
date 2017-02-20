@@ -148,6 +148,11 @@ public class Ship implements Runnable {
 	public double getShipHeading() {
 		return Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get()));
 	}
+	public double getShipHeadingDegrees360() {
+		if (Math.toDegrees(Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get()))) < 0)
+		return Math.toDegrees(Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get()))) + 360 ;
+		else return Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get()));
+	}
 
 	public void setShipHeading(double shipHeading) {
 		this.shipHeading.set(Math.atan2(Math.sin(shipHeading), Math.cos(shipHeading)));	

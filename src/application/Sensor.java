@@ -1,8 +1,12 @@
 package application;
 
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.fazecast.jSerialComm.SerialPort;
+
+import outputs.Outputs;
 
 public class Sensor implements Runnable{
 	
@@ -82,6 +86,8 @@ public class Sensor implements Runnable{
 		
 	}
 	public String sendData(){
+		
+		byte[] b;
 
 		switch (dataType) {
 			case "SIIS":
@@ -89,22 +95,22 @@ public class Sensor implements Runnable{
 			return "";
 			case "NMEA":
 				System.out.println("Sensor: "+name+" is sending NMEA data");
+				b = outputs.Outputs.NMEAstring(this);
 				comPort.openPort();
-				
-
-				String test = "Heading =" + Math.toDegrees(ownShip.getShipHeading())+ "\r\n";
-				byte[] b = test.getBytes();
-				
-				
 				comPort.writeBytes(b, b.length);
 				comPort.closePort();
 				
-			return test;
+			return b.toString();
 				
 			
 			case "EMM":
 				System.out.println("Sensor: "+name+" is sending EMM data");	
-			return "";
+				b = outputs.Outputs.EMMstring(this);
+				comPort.openPort();
+				comPort.writeBytes(b, b.length);
+				comPort.closePort();
+				
+			return b.toString();
 			
 			case "MPS":
 				System.out.println("Sensor: "+name+" is sending MPS data");

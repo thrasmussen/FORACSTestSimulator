@@ -47,7 +47,7 @@ public class Scenario extends Task<Integer>{
 				sensor.sendData();
 			}
 
-			updateCount.set(updateCount.get() + 1);
+			//updateCount.set(updateCount.get() + 1);
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
