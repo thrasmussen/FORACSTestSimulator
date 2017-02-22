@@ -352,7 +352,7 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 		ownShipMarker.setPosition(new LatLong(currPos.getLatitudeDeg(),currPos.getLongitudeDeg()));
 		map.setCenter(new LatLong(currPos.getLatitudeDeg(),currPos.getLongitudeDeg()));
 		System.out.println("Pause Simulation");
-		System.out.println(scenario.getShipUnderTest().getShipLLA().getLatitude());
+
 		
 	}
 	

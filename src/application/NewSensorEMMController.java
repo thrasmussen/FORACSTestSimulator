@@ -16,7 +16,7 @@ public class NewSensorEMMController {
     @FXML
     void setComPort(ActionEvent event) {
     	NewSensorController.sPort = SerialPort.getCommPort(cmbComPort.getValue());
-    	NewSensorController.sPort.setBaudRate(4800);
+    	NewSensorController.sPort.setBaudRate(9600);
     	NewSensorController.sPort.setParity(SerialPort.NO_PARITY);
     	NewSensorController.sPort.setNumStopBits(SerialPort.ONE_STOP_BIT);
     	NewSensorController.sPort.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
