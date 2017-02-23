@@ -151,7 +151,7 @@ public class Ship implements Runnable {
 	public double getShipHeadingDegrees360() {
 		if (Math.toDegrees(Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get()))) < 0)
 		return Math.toDegrees(Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get()))) + 360 ;
-		else return Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get()));
+		else return Math.toDegrees(Math.atan2(Math.sin(shipHeading.get()), Math.cos(shipHeading.get())));
 	}
 
 	public void setShipHeading(double shipHeading) {
@@ -277,7 +277,6 @@ public class Ship implements Runnable {
 		
 		double time = System.nanoTime();
 	    double delta_time =  ((time - shipLastUpdate) / 1000000000);
-	   System.out.println("deltatime : "+delta_time);
 	    shipLastUpdate = time;
 	    
 	    

@@ -21,6 +21,8 @@ import com.sun.javafx.scene.control.skin.IntegerFieldSkin;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,6 +46,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
+import netscape.javascript.JSObject;
 
 import com.fazecast.jSerialComm.*;
 
@@ -54,6 +57,7 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 	private static Target t1 = new Target("Generic Target 1", "radar", "yep", new LLA(0, 0, 0));
 	private static Target t2 = new Target("Generic Target 2", "radar", "yep", new LLA(2, 2, 0));;
 	private static Scenario scenario = new Scenario();
+
 	
 	
 	public static Scenario getScenario() {
@@ -149,7 +153,8 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 //		Bindings.bindBidirectional(txtHeading.textProperty(), scenario.getShipUnderTest().shipHeadingProperty(), new NumberStringConverter());	
 		//Altitude
 
-		
+
+
 	
 	//	slideRudderControll.valueProperty().bindBidirectional(txtRudder.textProperty(), new NumberStringConverter());
 		
@@ -194,23 +199,31 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 //		});
 		
 		scenario.getShipUnderTest().shipHeadingProperty().addListener((v, oldValue, newValue)->{
-			System.out.println("Heading update");
-		
+
+
 			slideHeadingControll.setValue(scenario.getShipUnderTest().getShipHeading() * (180 / Math.PI));
 		    
 		     
 		});
 		
-		scenario.updateCountProperty().addListener((v, oldValue, newValue)->{
-//			System.out.println("update " + newValue);
-//			if((int)newValue%10 == 0){
-//				System.out.println("mod100");
-//			}
-//			LLA currPos = SUT.getShipLLA();
-//			ownShipMarker.setPosition(new LatLong(currPos.getLatitudeDeg(),currPos.getLongitudeDeg()));
-//			map.setCenter(new LatLong(currPos.getLatitudeDeg(),currPos.getLongitudeDeg()));
-		});
+//		scenario.updateCountProperty().addListener((v, oldValue, newValue)->{
+//	
+////			LatLong newPos = new LatLong(SUT.getShipLLA().getLatitudeDeg(), SUT.getShipLLA().getLongitudeDeg());
+////			 MarkerOptions mOptions = new MarkerOptions();
+////		       
+////			
+////			Marker m = new Marker(mOptions);
+////				m.setPosition(newPos);
+////			map.addMarker(m);
+//			
+////			ownShipMarker.setPosition(new LatLong(SUT.getShipLLA().getLatitudeDeg(),SUT.getShipLLA().getLongitudeDeg()));
+//			
+//			
+//			
+//		});
 		
+		
+
 		
 //		slideHeadingControll.valueProperty().addListener((observable, oldValue, newValue) -> {
 //			scenario.getShipUnderTest().setShipHeading(newValue.doubleValue() * (Math.PI * 180));
@@ -226,8 +239,8 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 		
 		s1 = new Sensor("Radar1", "Radar", -10, -10, 0, SUT, null, t1);
 		s2 = new Sensor("Radar2", "Radar", 20, 20, 0, SUT, null, t1);
-		scenario.getShipUnderTest().addSensor(s1);
-		scenario.getShipUnderTest().addSensor(s2);
+		SUT.addSensor(s1);
+		SUT.addSensor(s2);
 		
 //TreeView
 		
@@ -331,8 +344,6 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
 		System.out.println("Start Simulation");
 		scenario.getShipUnderTest().setShipLastUpdated();
 		new Thread(scenario).start();
-
-		//SUT.setRunning(true);
 		System.out.println("Thread Ship");
 		
 		
@@ -411,6 +422,15 @@ public class MainController implements EventHandler<ActionEvent>, MapComponentIn
         mapView.setPrefHeight(1000);
 
         map.addMarker(ownShipMarker);
+        
+        
+        map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
+        	
+        	LatLong ll = new LatLong((JSObject) obj.getMember("latLng"));
+        	System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " +ll.getLongitude());
+
+  
+        });
         
         
 

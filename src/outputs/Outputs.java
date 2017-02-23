@@ -40,7 +40,7 @@ public class Outputs {
 		String hex = Integer.toHexString(sum);
 
 		String checksum = hex.substring(Math.max(hex.length() - 2, 0));
-		System.out.println(checksum);
+
 		
 		
 		
@@ -55,7 +55,7 @@ public class Outputs {
 		LLA sensorLLA = GeoCalculations.geoPosFromParallax(s);
 		Position pos = new Position(Math.toDegrees(sensorLLA.getLatitude()),Math.toDegrees(sensorLLA.getLongitude()));
 		
-		System.out.println("POS : " +pos.toString());
+	
 		
 		SentenceFactory sf = SentenceFactory.getInstance();
 		HDTSentence hdt = (HDTSentence) sf.createParser(TalkerId.IN, "HDT");

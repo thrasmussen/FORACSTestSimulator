@@ -36,18 +36,21 @@ public class Scenario extends Task<Integer>{
 	@Override
 	protected Integer call() throws Exception {
 		
-		
+		for(Sensor s: shipUnderTest.getShipSensors()){
+			System.out.println("Starting thread " + s );
+			new Thread(s).start();
+		}
 		while (shipUnderTest.isRunning()) {
 			
 			shipUnderTest.updatePosition();
 			
-			System.out.println(shipUnderTest.getShipName() + ": LLA:" + shipUnderTest.getShipLLA().getLatitudeDeg() + ", " + shipUnderTest.getShipLLA().getLongitudeDeg() + ", HDT: "+ Math.toDegrees(shipUnderTest.getShipHeading()));
+//			System.out.println(shipUnderTest.getShipName() + ": LLA:" + shipUnderTest.getShipLLA().getLatitudeDeg() + ", " + shipUnderTest.getShipLLA().getLongitudeDeg() + ", HDT: "+ Math.toDegrees(shipUnderTest.getShipHeading()));
 			
-			for(Sensor sensor : shipUnderTest.getShipSensors()){
-				sensor.sendData();
-			}
+//			for(Sensor sensor : shipUnderTest.getShipSensors()){
+//				sensor.sendData();
+//			}
 
-			//updateCount.set(updateCount.get() + 1);
+			updateCount.set(updateCount.get() + 1);
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

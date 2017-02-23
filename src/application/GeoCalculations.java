@@ -57,11 +57,9 @@ public class GeoCalculations {
 		return new LLA(lat2, lon2, pos1.getAltitude()+z); 
 	}
 	
-	public static LLA geoPosFromDistance(LLA pos1, double d, double bearing){
-		System.out.println("before: " + pos1.getLatitude() + " d= " + d+ "b:  " + bearing);
+	public static LLA geoPosFromDistance(LLA pos1, double d, double bearing){		
 		double lat2 = Math.asin(Math.sin(pos1.getLatitude())*Math.cos(d/EARTH_RADIUS_IN_METER) + Math.cos(pos1.getLatitude())*Math.sin(d/EARTH_RADIUS_IN_METER)*Math.cos(bearing));
 		double lon2 = pos1.getLongitude() + Math.atan2(Math.sin(bearing)*Math.sin(d/EARTH_RADIUS_IN_METER)*Math.cos(pos1.getLatitude()), Math.cos(d/EARTH_RADIUS_IN_METER)-Math.sin(pos1.getLatitude())*Math.sin(lat2));
-		System.out.println("after: " + lat2);
 		return new LLA(lat2, lon2, pos1.getAltitude()); 
 	}
 	

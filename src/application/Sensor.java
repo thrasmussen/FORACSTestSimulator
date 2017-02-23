@@ -6,9 +6,10 @@ import java.util.Date;
 
 import com.fazecast.jSerialComm.SerialPort;
 
+import javafx.concurrent.Task;
 import outputs.Outputs;
 
-public class Sensor implements Runnable{
+public class Sensor extends Task<Integer>{
 	
 	private String name;
 	private String type; 
@@ -62,29 +63,29 @@ public class Sensor implements Runnable{
 		this.dataType = outputType;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		while (ownShip.isRunning()) {
-			
-			try {
-				Thread.sleep(1000);
-				double angle = GeoCalculations.geoAngleBetweenLocations(this.getLLA(), this.target.getLLA());
-				double distance = GeoCalculations.geoDistanceInMetersBetweenLocation(this.getLLA(), this.target.getLLA());			
-				System.out.println("Sensor:" + name +" ,Target:" + this.target.getName() + " ,Distance=" + distance + " ,Bearing=" + Math.toDegrees(angle) + ", ownpos = " +getLLA().toString());
-				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-		}
-		
-		
-		
-		
-	}
+//	@Override
+//	public void run() {
+//		// TODO Auto-generated method stub
+//		while (ownShip.isRunning()) {
+//			
+//			try {
+//				Thread.sleep(1000);
+//				double angle = GeoCalculations.geoAngleBetweenLocations(this.getLLA(), this.target.getLLA());
+//				double distance = GeoCalculations.geoDistanceInMetersBetweenLocation(this.getLLA(), this.target.getLLA());			
+//				System.out.println("Sensor:" + name +" ,Target:" + this.target.getName() + " ,Distance=" + distance + " ,Bearing=" + Math.toDegrees(angle) + ", ownpos = " +getLLA().toString());
+//				
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//			
+//		}
+//		
+//		
+//		
+//		
+//	}
 	public String sendData(){
 		
 		byte[] b;
@@ -94,7 +95,7 @@ public class Sensor implements Runnable{
 				System.out.println("Sensor: "+name+" is sending SIIS data");
 			return "";
 			case "NMEA":
-				System.out.println("Sensor: "+name+" is sending NMEA data");
+				
 				b = outputs.Outputs.NMEAstring(this);
 				comPort.openPort();
 				comPort.writeBytes(b, b.length);
@@ -104,10 +105,11 @@ public class Sensor implements Runnable{
 				
 			
 			case "EMM":
-				System.out.println("Sensor: "+name+" is sending EMM data");	
+					
 				b = outputs.Outputs.EMMstring(this);
 				comPort.openPort();
 				comPort.writeBytes(b, b.length);
+				System.out.println(new String(b));
 				comPort.closePort();
 				
 			return b.toString();
@@ -229,6 +231,22 @@ public class Sensor implements Runnable{
 		
 		System.out.println(s);
 		
+	}
+
+	@Override
+	protected Integer call() throws Exception {
+		while (ownShip.isRunning()) {
+			this.sendData();
+			
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
 	}
 	
 	

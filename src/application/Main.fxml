@@ -120,7 +120,7 @@
             </MenuBar>
             <ToolBar prefHeight="35.0" prefWidth="200.0">
                <items>
-                  <MenuButton mnemonicParsing="false" text="New">
+                  <MenuButton mnemonicParsing="false" text="Add">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Scenario" />
                       <MenuItem mnemonicParsing="false" onAction="#btnNewShip" text="Ship" />
