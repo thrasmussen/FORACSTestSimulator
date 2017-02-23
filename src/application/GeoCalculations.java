@@ -49,7 +49,7 @@ public class GeoCalculations {
 		double y = s.getyParallax();
 		double z = s.getzParallax();
 		double bearing = s.getOwnShip().getShipHeading();
-		LLA pos1 = s.getLLA();
+		LLA pos1 = s.getOwnShip().getShipLLA();
 		double brng = Math.atan(y/x) - bearing;
 		double d = Math.sqrt(y*y+x*x);
 		double lat2 = Math.asin(Math.sin(pos1.getLatitude())*Math.cos(d/EARTH_RADIUS_IN_METER) + Math.cos(pos1.getLatitude())*Math.sin(d/EARTH_RADIUS_IN_METER)*Math.cos(brng));

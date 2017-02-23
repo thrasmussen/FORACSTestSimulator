@@ -49,7 +49,7 @@ public class Scenario extends Task<Integer>{
 //			for(Sensor sensor : shipUnderTest.getShipSensors()){
 //				sensor.sendData();
 //			}
-
+			System.out.println(shipUnderTest.getShipLLA().toString());
 			updateCount.set(updateCount.get() + 1);
 			try {
 				Thread.sleep(100);

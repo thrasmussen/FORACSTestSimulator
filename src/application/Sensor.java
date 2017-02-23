@@ -119,7 +119,7 @@ public class Sensor extends Task<Integer>{
 			return "";
 			
 			default:
-				System.out.println("Sensor: "+name+" is sending default data");
+				
 			return "";
 			
 		}

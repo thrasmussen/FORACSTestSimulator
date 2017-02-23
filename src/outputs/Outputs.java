@@ -28,7 +28,7 @@ public class Outputs {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm:ss");
 		LLA sensorLLA = GeoCalculations.geoPosFromParallax(s);
 		Position pos = new Position(Math.toDegrees(sensorLLA.getLatitude()),Math.toDegrees(sensorLLA.getLongitude()));
-		
+		System.out.println(pos.toString());
 		
 		Date now = new Date();
 		String strDate = sdfDate.format(now);		
@@ -52,7 +52,8 @@ public class Outputs {
 	
 	public static byte[] NMEAstring(Sensor s){
 		Time t = new Time(); 
-		LLA sensorLLA = GeoCalculations.geoPosFromParallax(s);
+		LLA sensorLLA = s.getLLA();
+		System.out.println(sensorLLA.toString() + "NMEA string");
 		Position pos = new Position(Math.toDegrees(sensorLLA.getLatitude()),Math.toDegrees(sensorLLA.getLongitude()));
 		
 	
@@ -94,11 +95,10 @@ public class Outputs {
 		double latDeg = Math.floor(lat);
 		double lonDeg = Math.floor(lon);
 		
-		double latMin = lat - latDeg; 
-		double lonMin = lat - latDeg;
+		double latMin = (lat - latDeg)*60; 
+		double lonMin = (lon - lonDeg)*60;
 
-		latMin *= 60;
-		lonMin *= 60;
+	
 		
 		DecimalFormat numberFormat = new DecimalFormat("00.00000");
 		NumberFormat longi = new DecimalFormat("000");
